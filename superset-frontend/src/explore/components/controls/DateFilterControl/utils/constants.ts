@@ -36,6 +36,7 @@ import { CheckboxOptionType } from '@superset-ui/core/components/Radio';
 import { extendedDayjs } from '@superset-ui/core/utils/dates';
 
 export const FRAME_OPTIONS: SelectOptionType[] = [
+  { value: 'CalendarDatePicker', label: t('Calendar') },
   { value: 'Common', label: t('Last') },
   { value: 'Calendar', label: t('Previous') },
   { value: 'Current', label: t('Current') },

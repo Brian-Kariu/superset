@@ -25,6 +25,7 @@ export type SelectOptionType = {
 };
 
 export type FrameType =
+  | 'CalendarDatePicker'
   | 'Common'
   | 'Calendar'
   | 'Current'

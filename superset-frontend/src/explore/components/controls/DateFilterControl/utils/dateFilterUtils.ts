@@ -27,9 +27,16 @@ import {
   CALENDAR_RANGE_VALUES_SET,
   CURRENT_RANGE_VALUES_SET,
 } from '.';
+import { CALENDAR_DATE_PICKER_VALUES_SET } from '../components/CalendarDatePickerPresets';
 import { FrameType } from '../types';
 
 export const guessFrame = (timeRange: string): FrameType => {
+  if (!timeRange || timeRange === NO_TIME_RANGE) {
+    return 'CalendarDatePicker';
+  }
+  if (CALENDAR_DATE_PICKER_VALUES_SET.has(timeRange)) {
+    return 'CalendarDatePicker';
+  }
   if (COMMON_RANGE_VALUES_SET.has(timeRange)) {
     return 'Common';
   }
@@ -38,9 +45,6 @@ export const guessFrame = (timeRange: string): FrameType => {
   }
   if (CURRENT_RANGE_VALUES_SET.has(timeRange)) {
     return 'Current';
-  }
-  if (timeRange === NO_TIME_RANGE) {
-    return 'No filter';
   }
   if (customTimeRangeDecode(timeRange).matchedFlag) {
     return 'Custom';

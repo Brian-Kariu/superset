@@ -46,6 +46,7 @@ import ControlPopover from '../ControlPopover/ControlPopover';
 
 import { DateFilterControlProps, FrameType } from './types';
 import {
+  CURRENT_RANGE_VALUES_SET,
   DateFilterTestKey,
   FRAME_OPTIONS,
   guessFrame,
@@ -56,6 +57,7 @@ import {
   CalendarFrame,
   CustomFrame,
   AdvancedFrame,
+  CalendarDatePickerFrame,
   DateLabel,
 } from './components';
 import { CurrentCalendarFrame } from './components/CurrentCalendarFrame';
@@ -210,11 +212,15 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
             | tooltip      | ADR  | ADR      | HRT    | HRT      |   ADR     |
             +--------------+------+----------+--------+----------+-----------+
           */
+          const calendarPickerCanonical =
+            guessedFrame === 'CalendarDatePicker' &&
+            CURRENT_RANGE_VALUES_SET.has(value);
           if (
             guessedFrame === 'Common' ||
             guessedFrame === 'Calendar' ||
             guessedFrame === 'Current' ||
-            guessedFrame === 'No filter'
+            guessedFrame === 'No filter' ||
+            calendarPickerCanonical
           ) {
             setActualTimeRange(value);
             setTooltipTitle(
@@ -309,6 +315,13 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
         onChange={onChangeFrame}
       />
       {frame !== 'No filter' && <Divider />}
+      {frame === 'CalendarDatePicker' && (
+        <CalendarDatePickerFrame
+          value={timeRangeValue}
+          onChange={setTimeRangeValue}
+          onSwitchFrame={setFrame}
+        />
+      )}
       {frame === 'Common' && (
         <CommonFrame value={timeRangeValue} onChange={setTimeRangeValue} />
       )}
